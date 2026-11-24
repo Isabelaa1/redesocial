@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect - Rede Social</title>
+    <style>
+        /* Estilos gerais */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #7b2cbf;
+        }
+
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: #7b2cbf;
+        }
+
+        /* Seção do Feed e Publicação */
+        .feed-container {
+            max-width: 600px;
+            margin: 40px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .create-post {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .create-post textarea {
+            resize: none;
+            height: 90px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .create-post textarea:focus {
+            border-color: #7b2cbf;
+        }
+
+        .create-post button, .post-actions button, .auth-btn {
+            background-color: #7b2cbf;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .create-post button:hover, .post-actions button:hover, .auth-btn:hover {
+            background-color: #5a189a;
+        }
+
+        .post-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .post-card p {
+            margin-top: 0;
+            font-size: 15px;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .post-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-curtir {
+            background-color: #e0aaff !important;
+            color: #3c096c !important;
+        }
+
+        .btn-curtir:hover {
+            background-color: #c77dff !important;
+        }
+
+        /* Estilo das Telas de Autenticação (Modais/Seções Ocultas) */
+        .auth-container {
+            display: none; /* Começa oculto */
+            max-width: 400px;
+            margin: 60px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .auth-container h2 {
+            color: #7b2cbf;
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #7b2cbf;
+        }
+
+        .auth-btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .close-auth {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .close-auth:hover {
+            color: #7b2cbf;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header>
+        <div class="logo">connect.</div>
+        <nav>
+            <a id="link-inicio">Início</a>
+            <a id="link-entrar">Entrar</a>
+            <a id="link-criar">Criar conta</a>
+        </nav>
+    </header>
+
+    <!-- ÁREA 1: FEED PRINCIPAL -->
+    <main id="main-feed" class="feed-container">
+        <div class="create-post">
+            <textarea id="post-text" placeholder="No que você está pensando? Compartilhe um momento..."></textarea>
+            <button id="btn-publicar">Publicar</button>
+        </div>
+
+        <div id="posts-feed">
+            <div class="post-card">
+                <p>Seja bem-vindo ao Connect! Este é o espaço perfeito para interagir e compartilhar suas ideias. 🚀</p>
+                <div class="post-actions">
+                    <button class="btn-curtir">❤️ Curtir (<span class="like-count">0</span>)</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ÁREA 2: TELA DE ENTRAR (LOGIN) -->
+    <div id="auth-login" class="auth-container">
+        <h2>Entrar no Connect</h2>
+        <div class="form-group">
+            <label>E-mail</label>
+            <input type="email" placeholder="seu@email.com">
+        </div>
+        <div class="form-group">
+            <label>Senha</label>
+            <input type="password" placeholder="Sua senha">
+        </div>
+        <button class="auth-btn" id="btn-fazer-login">Entrar</button>
+        <div class="close-auth" id="voltar-do-login">Voltar para o Início</div>
+    </div>
+
+    <!-- ÁREA 3: TELA DE CRIAR CONTA -->
+    <div id="auth-cadastro" class="auth-container">
+        <h2>Criar Conta</h2>
+        <div class="form-group">
+            <label>Nome completo</label>
+            <input type="text" placeholder="Seu nome">
+        </div>
+        <div class="form-group">
+            <label>E-mail</label>
+            <input type="email" placeholder="seu@email.com">
+        </div>
+        <div class="form-group">
+            <label>Senha</label>
+            <input type="password" placeholder="Crie uma senha forte">
+        </div>
+        <button class="auth-btn" id="btn-fazer-cadastro">Cadastrar</button>
+        <div class="close-auth" id="voltar-do-cadastro">Voltar para o Início</div>
+    </div>
+
+    <!-- JavaScript para alternar telas e manter funcionalidades -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Elementos de navegação e telas
+            const linkInicio = document.getElementById("link-inicio");
+            const linkEntrar = document.getElementById("link-entrar");
+            const linkCriar = document.getElementById("link-criar");
+            
+            const mainFeed = document.getElementById("main-feed");
+            const authLogin = document.getElementById("auth-login");
+            const authCadastro = document.getElementById("auth-cadastro");
+
+            const voltarLogin = document.getElementById("voltar-do-login");
+            const voltarCadastro = document.getElementById("voltar-do-cadastro");
+
+            // Funções para alternar a exibição das telas
+            function mostrarTela(tela) {
+                mainFeed.style.display = "none";
+                authLogin.style.display = "none";
+                authCadastro.style.display = "none";
+
+                tela.style.display = "block";
+            }
+
+            linkInicio.addEventListener("click", () => mostrarTela(mainFeed));
+            linkEntrar.addEventListener("click", () => mostrarTela(authLogin));
+            linkCriar.addEventListener("click", () => mostrarTela(authCadastro));
+            
+            voltarLogin.addEventListener("click", () => mostrarTela(mainFeed));
+            voltarCadastro.addEventListener("click", () => mostrarTela(mainFeed));
+
+            // Simulação de clique nos botões de ação de login/cadastro
+            document.getElementById("btn-fazer-login").addEventListener("click", () => {
+                alert("Login simulado com sucesso! (Na versão final, conectaremos ao banco de dados).");
+                mostrarTela(mainFeed);
+            });
+
+            document.getElementById("btn-fazer-cadastro").addEventListener("click", () => {
+                alert("Conta criada com sucesso! Bem-vindo ao Connect.");
+                mostrarTela(mainFeed);
+            });
+
+            // --- FUNCIONALIDADE DE POSTS E CURTIDAS ---
+            const btnPublicar = document.getElementById("btn-publicar");
+            const postText = document.getElementById("post-text");
+            const postsFeed = document.getElementById("posts-feed");
+
+            btnPublicar.addEventListener("click", () => {
+                const texto = postText.value.trim();
+
+                if (texto === "") {
+                    alert("Escreva algo antes de publicar!");
+                    return;
+                }
+
+                const postCard = document.createElement("div");
+                postCard.classList.add("post-card");
+
+                postCard.innerHTML = `
+                    <p>${escapeHTML(texto)}</p>
+                    <div class="post-actions">
+                        <button class="btn-curtir">❤️ Curtir (<span class="like-count">0</span>)</button>
+                    </div>
+                `;
+
+                postsFeed.prepend(postCard);
+                postText.value = "";
+                ativarBotaoCurtir(postCard);
+            });
+
+            function ativarBotaoCurtir(card) {
+                const btnCurtir = card.querySelector(".btn-curtir");
+                const likeCount = card.querySelector(".like-count");
+
+                btnCurtir.addEventListener("click", () => {
+                    let atual = parseInt(likeCount.textContent);
+                    likeCount.textContent = atual + 1;
+                    
+                    btnCurtir.style.transform = "scale(1.08)";
+                    setTimeout(() => {
+                        btnCurtir.style.transform = "scale(1)";
+                    }, 150);
+                });
+            }
+
+            function escapeHTML(str) {
+                return str.replace(/[&<>'"]/g, 
+                    tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+                );
+            }
+
+            document.querySelectorAll(".post-card").forEach(card => {
+                ativarBotaoCurtir(card);
+            });
+        });
+    </script>
+</body>
+</html>

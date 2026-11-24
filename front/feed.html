@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect - Feed</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+
+<header class="topo-feed">
+    <a href="index.html" class="logo">connect<span>.</span></a>
+
+    <nav class="menu-feed">
+        <a href="feed.html">Publicações</a>
+        <a href="curtidas.html">Curtidas ♡</a>
+    </nav>
+</header>
+
+
+<main class="feed-layout">
+
+    <aside class="feed-lateral">
+        <h3>Menu</h3>
+        <a href="feed.html">⌂ Início</a>
+        <a href="#nova-publicacao">＋ Criar publicação</a>
+        <a href="#publicacoes">▤ Publicações</a>
+        <a href="curtidas.html">♡ Curtidas</a>
+        <a href="perfil.html">♙ Meu perfil</a>
+    </aside>
+
+    <section class="feed-central">
+
+        <div class="boas-vindas">
+            <h1>Seu espaço, suas conexões!</h1>
+            <p>Compartilhe seus momentos com o mundo.</p>
+        </div>
+
+        <div class="criar-post" id="nova-publicacao">
+            <h2>O que você está pensando?</h2>
+
+            <form action="#" method="post">
+                <textarea name="legenda"
+                    placeholder="Compartilhe alguma coisa..."
+                    required></textarea>
+
+                <div class="acoes-post">
+                    <span>♡ Compartilhe seus momentos</span>
+                    <button type="submit">Publicar</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="publicacoes" class="publicacoes-feed">
+            <h2>Publicações recentes</h2>
+
+            <article class="publicacao">
+                <div class="usuario-post">
+                    <div class="avatar">M</div>
+                    <div>
+                        <h3>Maria Silva</h3>
+                        <small>Há 10 minutos</small>
+                    </div>
+                </div>
+
+                <p>Bem-vindos ao Connect! Vamos compartilhar momentos? 💜</p>
+
+                <div class="interacoes">
+                    <button type="button">♡ Curtir</button>
+                    <span>0 curtidas</span>
+                </div>
+            </article>
+
+            <article class="publicacao">
+                <div class="usuario-post">
+                    <div class="avatar">A</div>
+                    <div>
+                        <h3>Ana Costa</h3>
+                        <small>Há 30 minutos</small>
+                    </div>
+                </div>
+
+                <p>Hoje é um ótimo dia para fazer novas conexões! ✨</p>
+
+                <div class="interacoes">
+                    <button type="button">♡ Curtir</button>
+                    <span>0 curtidas</span>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <aside class="feed-direita">
+        <h3>Sobre o Connect</h3>
+        <p>Um espaço para compartilhar ideias, momentos e conhecer pessoas.</p>
+        <div class="destaque-feed">
+            <span>♡</span>
+            <h4>Conecte-se!</h4>
+            <p>Compartilhe, curta e interaja.</p>
+        </div>
+    </aside>
+
+</main>
+
+</body>
+</html>
